@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nudo.gg.sample.vo.SampleVo;
 
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
@@ -56,7 +57,8 @@ public class SampleController {
 		
 		return ret;
 	}
-
+	@ApiImplicitParam
+	@ApiModelProperty
 	@ApiOperation(value="목록조회", notes="Sample을 목록조회한다.")
 	@GetMapping("/sample/list/{page}")
 	public List<SampleVo> getSampleList(

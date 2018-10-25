@@ -12,6 +12,9 @@ public class SampleVo {
 	@ApiModelProperty(value = "값 , 해당 컬럼의 comment는 여기에서 설정할 수 있다.")
 	private int value;
 	
+	@ApiModelProperty(value = "상태", allowableValues = "available,pending,sold", example="pending")
+	private String status;
+	
 	public String getId() {
 		return id;
 	}
@@ -24,7 +27,12 @@ public class SampleVo {
 	public void setValue(int value) {
 		this.value = value;
 	}
-	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	@Override
 	public String toString() {
 		return "SampleVo [id=" + id + ", value=" + value + "]";
