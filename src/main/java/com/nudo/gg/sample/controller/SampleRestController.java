@@ -31,18 +31,18 @@ import io.swagger.annotations.ApiParam;
 @CrossOrigin
 @RestController
 @RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
-public class SampleController {
+public class SampleRestController {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-//	@RequestMapping("/sample")
+//	@RequestMapping("/sampleRest")
 //	String sample() {
 //		return "Hello~~~~";
 //	}
 
 	
 	@ApiOperation(value="단건조회", notes="Sample을 단건조회한다.")
-	@GetMapping("/sample/{id}")
+	@GetMapping("/sampleRest/{id}")
 	public SampleVo getSample(
 			
 			@ApiParam(value = "조회하고자 하는 sample의 id", required = true, name = "id")
@@ -60,7 +60,7 @@ public class SampleController {
 	@ApiImplicitParam
 	@ApiModelProperty
 	@ApiOperation(value="목록조회", notes="Sample을 목록조회한다.")
-	@GetMapping("/sample/list/{page}")
+	@GetMapping("/sampleRest/list/{page}")
 	public List<SampleVo> getSampleList(
 			
 			@ApiParam(value = "페이지 번호", required = true, name = "page")
@@ -90,7 +90,7 @@ public class SampleController {
 	}
 	
 	@ApiOperation(value="신규생성", notes="Sample을 신규 생성한다.")
-	@PostMapping("/sample")
+	@PostMapping("/sampleRest")
 	public SampleVo createSample(
 			
 			@RequestBody(required = true) SampleVo vo
@@ -107,7 +107,7 @@ public class SampleController {
 	}
 	
 	@ApiOperation(value="수정", notes="Sample을 수정한다.")
-	@PutMapping("/sample")
+	@PutMapping("/sampleRest")
 	public SampleVo modifySample(
 			
 			@RequestBody(required = true) SampleVo vo
@@ -119,7 +119,7 @@ public class SampleController {
 	}
 	
 	@ApiOperation(value="삭제", notes="Sample을 삭제한다.")
-	@DeleteMapping("/sample")
+	@DeleteMapping("/sampleRest")
 	public int deleteSample(
 			
 			@PathVariable("id") String id
