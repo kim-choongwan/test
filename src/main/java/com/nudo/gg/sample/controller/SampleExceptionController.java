@@ -52,7 +52,7 @@ public class SampleExceptionController {
 		logger.info("ERROR CODE : {}",errCode );
 		
 		if("".equals("")) {
-			throw new BizException("err.spl.001",new String[] {"값1","값2"}) ;
+			throw new BizException(errCode,new String[] {"값1","값2"}) ;
 		}
 		
 		return ret;
