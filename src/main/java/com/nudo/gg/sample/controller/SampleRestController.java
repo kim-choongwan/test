@@ -57,10 +57,12 @@ public class SampleRestController {
 		
 		return ret;
 	}
+	
+	
 	@ApiImplicitParam
 	@ApiModelProperty
 	@ApiOperation(value="목록조회", notes="Sample을 목록조회한다.")
-	@GetMapping("/sampleRest/list/{page}")
+	@GetMapping("/sampleRests/{page}")
 	public List<SampleVo> getSampleList(
 			
 			@ApiParam(value = "페이지 번호", required = true, name = "page")
