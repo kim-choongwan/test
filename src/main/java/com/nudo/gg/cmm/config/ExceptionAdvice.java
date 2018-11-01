@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 
-import com.nudo.gg.cmm.config.vo.ErrorMessage;
+import com.nudo.gg.cmm.config.model.ErrorMessage;
 import com.nudo.gg.cmm.exception.BizException;
 
 @ControllerAdvice 
