@@ -2,24 +2,25 @@ package com.nudo.gg.board.vo;
 
 public class BoardVO {
 
-	private long BOARD_ID;
-	private String CONTENT;
-
-	public long getBOARD_ID() {
-		return BOARD_ID;
+	private long boardId;
+	private String content;
+	
+	public long getBoardId() {
+		return boardId;
 	}
-	public void setBOARD_ID(long bOARD_ID) {
-		BOARD_ID = bOARD_ID;
+	public void setBoardId(long boardId) {
+		this.boardId = boardId;
 	}
-	public String getCONTENT() {
-		return CONTENT;
+	public String getContent() {
+		return content;
 	}
-	public void setCONTENT(String cONTENT) {
-		CONTENT = cONTENT;
+	public void setContent(String content) {
+		this.content = content;
 	}
+	
 	@Override
 	public String toString() {
-		return "BoardVO [BOARD_ID=" + BOARD_ID + ", CONTENT=" + CONTENT + "]";
+		return "BoardVO [boardId=" + boardId + ", content=" + content + "]";
 	}
 	
 }
