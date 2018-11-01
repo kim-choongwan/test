@@ -1,4 +1,4 @@
-package com.nudo.gg.config;
+package com.nudo.gg.cmm.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 
-import com.nudo.gg.config.vo.ErrorMessage;
-import com.nudo.gg.exception.BizException;
+import com.nudo.gg.cmm.config.vo.ErrorMessage;
+import com.nudo.gg.cmm.exception.BizException;
 
 @ControllerAdvice 
 @Configuration

@@ -1,4 +1,4 @@
-package com.nudo.gg.config.vo;
+package com.nudo.gg.cmm.config.vo;
 
 public class ErrorMessage {
 

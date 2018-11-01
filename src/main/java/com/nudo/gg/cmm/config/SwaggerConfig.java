@@ -1,4 +1,4 @@
-package com.nudo.gg.config;
+package com.nudo.gg.cmm.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

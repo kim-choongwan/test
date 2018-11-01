@@ -1,4 +1,4 @@
-package com.nudo.gg.config;
+package com.nudo.gg.cmm.config;
 
 import java.util.Locale;
 

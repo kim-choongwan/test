@@ -1,4 +1,4 @@
-package com.nudo.gg.exception;
+package com.nudo.gg.cmm.exception;
 
 public class BizException extends RuntimeException{
 
