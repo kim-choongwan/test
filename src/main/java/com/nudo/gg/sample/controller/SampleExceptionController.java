@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nudo.gg.cmm.exception.BizException;
-import com.nudo.gg.sample.vo.SampleVo;
+import com.nudo.gg.sample.model.Sample;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiModelProperty;

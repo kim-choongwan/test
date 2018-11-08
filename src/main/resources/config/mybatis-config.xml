@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<settings>
+		<!-- changes from the defaults for testing -->
+		<setting name="cacheEnabled" value="true" />
+		<setting name="useGeneratedKeys" value="true" />
+		<setting name="defaultExecutorType" value="REUSE" />
+		<setting name="localCacheScope" value="SESSION" />
+		<setting name="jdbcTypeForNull" value="NULL" />
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings>
+
+	<typeAliases>
+		<typeAlias alias="timestamp" type="java.sql.Timestamp" />
+	</typeAliases>
+
+	<!--
+	<plugins>
+		<plugin
+			interceptor="com.samsung.datasync.send.common.interceptor.MBUpdateInterceptor">
+			<property name="dssConfig" value="ses.syst.conf" />
+		</plugin>
+	</plugins>
+	-->
+
+</configuration>

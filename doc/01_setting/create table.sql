@@ -1,3 +1,5 @@
+USE cg;
+
 #DROP TABLE TB_BOARD
 ;
 
@@ -20,5 +22,13 @@ INSERT INTO TB_BOARD(
    'TEST CONTENT'             
   ,'ADMIN'       
   ,'ADMIN'       
+)
+;
+
+CREATE TABLE TB_SAMPLE(
+   ID      INT  NOT NULL AUTO_INCREMENT COMMENT '식별자'
+  ,TYPE    CHAR(2)      NOT NULL COMMENT '구분'
+  ,VAL     BIGINT(5)    NOT NULL COMMENT '값'
+  ,PRIMARY KEY (ID)
 )
 ;

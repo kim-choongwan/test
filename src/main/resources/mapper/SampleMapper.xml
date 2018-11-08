@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nudo.gg.sample.mapper.SampleMapper">
+	
+	
+	<select id="get"
+			parameterType="int"
+			resultType="com.nudo.gg.sample.model.Sample" useCache="true">
+SELECT  *
+FROM    TB_SAMPLE
+WHERE   ID = #{id}
+	</select>
+
+
+	<select id="search"
+			parameterType="com.nudo.gg.sample.model.SampleCondition"
+			resultType="com.nudo.gg.sample.model.Sample" useCache="true">
+SELECT  *
+FROM    TB_SAMPLE
+WHERE   1=1
+		<if test=" TYPE != null and TYPE != ''">
+AND     TYPE = #{TYPE} 
+		</if>
+
+	</select>
+
+
+	<insert id="insert"
+			parameterType="com.nudo.gg.sample.model.Sample">
+		<selectKey keyProperty="ID" resultType="int">
+SELECT LAST_INSERT_ID()
+		</selectKey>
+INSERT INTO TB_SAMPLE(
+	 ID
+	,TYPE
+	,VAL
+)VALUES(
+	 #{ID}
+	,#{TYPE}
+	,#{VAL}
+
+)
+	</insert>
+
+
+	<update id="update"
+			parameterType="com.nudo.gg.sample.model.Sample">
+UPDATE TB_SAMPLE
+SET    TYPE = #{TYPE}
+      ,VAL  = #{VAL} 			
+WHERE  ID = #{ID}
+	</update>
+
+
+	<delete id="delete"
+			parameterType="int">
+DELETE FROM TB_SAMPLE
+WHERE  ID = #{ID}
+	</delete>
+
+
+</mapper>
