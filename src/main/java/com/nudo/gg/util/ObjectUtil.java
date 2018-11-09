@@ -134,4 +134,44 @@ public class ObjectUtil {
     public static boolean isNull(Object object) {
         return ((object == null) || object.equals(null));
     }
+    
+	public static boolean isEmpty(Object object) {
+		if (object == null)
+			return true;
+		return false;
+	}
+
+	public static boolean isNotEmpty(Object object) {
+		return !isEmpty(object);
+	}
+
+	/**
+	 * null 이거나 0 일 경우 true를 아닐 경우 false를 리턴한다.
+	 * 
+	 * @param l
+	 * @return
+	 * @작성자 kim.choong.wan
+	 * @date 20181030
+	 *
+	 */
+	public static boolean isEmpty(Long l) {
+		if (l == null)
+			return true;
+		if (l == 0L)
+			return true;
+		return false;
+	}
+
+	/**
+	 * null 이거나 0 일 경우 false를 아닐 경우 true를 리턴한다.
+	 * 
+	 * @param l
+	 * @return
+	 * @작성자 kim.choong.wan
+	 * @date 20181030
+	 *
+	 */
+	public static boolean isNotEmpty(Long l) {
+		return !isEmpty(l);
+	}
 }

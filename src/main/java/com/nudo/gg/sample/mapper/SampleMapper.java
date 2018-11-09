@@ -10,7 +10,7 @@ import com.nudo.gg.sample.model.SampleCondition;
 @Mapper
 public interface SampleMapper {
 
-	Sample get(int id);
+	Sample get(Long id);
 
 	List<Sample> search(SampleCondition condtion);
 
@@ -18,6 +18,6 @@ public interface SampleMapper {
 
 	int update(Sample sample);
 
-	int delete(int id);
+	int delete(Long id);
 	
 }

@@ -6,7 +6,7 @@
 	
 	
 	<select id="get"
-			parameterType="int"
+			parameterType="long"
 			resultType="com.nudo.gg.sample.model.Sample" useCache="true">
 SELECT  *
 FROM    TB_SAMPLE
@@ -20,8 +20,8 @@ WHERE   ID = #{id}
 SELECT  *
 FROM    TB_SAMPLE
 WHERE   1=1
-		<if test=" TYPE != null and TYPE != ''">
-AND     TYPE = #{TYPE} 
+		<if test=" type != null and type != ''">
+AND     TYPE = #{type} 
 		</if>
 
 	</select>
@@ -29,7 +29,7 @@ AND     TYPE = #{TYPE}
 
 	<insert id="insert"
 			parameterType="com.nudo.gg.sample.model.Sample">
-		<selectKey keyProperty="ID" resultType="int">
+		<selectKey keyProperty="id" resultType="long">
 SELECT LAST_INSERT_ID()
 		</selectKey>
 INSERT INTO TB_SAMPLE(
@@ -37,9 +37,9 @@ INSERT INTO TB_SAMPLE(
 	,TYPE
 	,VAL
 )VALUES(
-	 #{ID}
-	,#{TYPE}
-	,#{VAL}
+	 #{id}
+	,#{type}
+	,#{val}
 
 )
 	</insert>
@@ -48,16 +48,16 @@ INSERT INTO TB_SAMPLE(
 	<update id="update"
 			parameterType="com.nudo.gg.sample.model.Sample">
 UPDATE TB_SAMPLE
-SET    TYPE = #{TYPE}
-      ,VAL  = #{VAL} 			
-WHERE  ID = #{ID}
+SET    TYPE = #{type}
+      ,VAL  = #{val} 			
+WHERE  ID   = #{id}
 	</update>
 
 
 	<delete id="delete"
-			parameterType="int">
+			parameterType="long">
 DELETE FROM TB_SAMPLE
-WHERE  ID = #{ID}
+WHERE  ID = #{id}
 	</delete>
 
 

@@ -24,6 +24,9 @@ import com.nudo.gg.sample.model.Sample;
 import com.nudo.gg.sample.model.SampleCondition;
 import com.nudo.gg.sample.service.SampleService;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
@@ -40,10 +43,17 @@ public class SampleController {
 	@Autowired
 	private SampleService sampleService; 
 	
-	@ApiOperation(value="단건조회", notes="Sample을 단건조회한다.")
+	@ApiOperation(
+			value="단건조회"                //요약설명
+		  , notes="Sample을 단건조회한다.<br/>id는 필수."  //설명
+	)
 	@GetMapping("/sample/{id}")
 	public Sample get(
-			@ApiParam(value = "조회하고자 하는 sample의 id", required = true, name = "id") @PathVariable("id") int id
+			@ApiParam(
+				  value = "조회하고자 하는 sample의 id"  //parameters.description
+				, required = true                        //필수여부
+				, name = "id"
+				) @PathVariable("id") Long id
 			) throws Exception {
 		
 		return sampleService.get(id);
@@ -57,8 +67,12 @@ public class SampleController {
 //		condition.setTYPE(tYPE);
 //		return sampleService.search(condition);
 //	}
-
+	
 	@ApiOperation(value="목록조회", notes="Sample을 목록조회한다.")
+	@ApiImplicitParams({    
+			 @ApiImplicitParam(name = "type"   , required = true,  value="타입", defaultValue="ZZ",paramType="query") 
+			,@ApiImplicitParam(name = "garvege", required = false,  value="(미사용)",readOnly=true,paramType="query")
+	})
 	@GetMapping("/samples")
 	public List<Sample> getList(@ModelAttribute SampleCondition condition) {
 				
@@ -66,9 +80,12 @@ public class SampleController {
 		
 	}
 			
-	@ApiOperation(value="추가", notes="Sample을 추가한다.")
+	@ApiOperation(
+			  value="추가"
+			, notes="Sample을 추가한다."
+			)
 	@PostMapping("/sample")
-	public Sample insert(@RequestBody(required = true) Sample sample) {
+	public Sample insert(@RequestBody(required=true ) Sample sample) {
 
 		return sampleService.insert(sample);
 		
@@ -84,10 +101,38 @@ public class SampleController {
 
 	@ApiOperation(value="삭제", notes="Sample을 삭제한다.")
 	@DeleteMapping("/sample/{id}")
-	public void delete(@ApiParam(value = "삭제하고자 하는 sample의 id", required = true, name = "id") @PathVariable("id") int id) {
+	public void delete(@ApiParam(value = "삭제하고자 하는 sample의 id", required = true, name = "id") @PathVariable("id") Long id) {
 
 		sampleService.delete(id);
 		
 	}
+
+	@ApiOperation(value="목록저장", notes="Sample을 목록저장한다.")
+	@PostMapping("/samples")
+	public void setList(@ModelAttribute SampleCondition condition, @RequestBody(required = true) List<Sample> samples) {
+				
+		sampleService.setList(samples);
+		
+	}
+
+	
+	//@ApiImplicitParams.@ApiImplicitParam.name : 변수명, 파라미터키
+	//@ApiImplicitParams.@ApiImplicitParam.value : 변수에 대한 설명
+	
+	//@ApiImplicitParams.@ApiImplicitParam.defaultValue : 기본값 , 값을 설정하지 않으면 기본값이 세팅된다.
+	//@ApiImplicitParams.@ApiImplicitParam.allowableValues : 허용값. 예) "A,B,C"  range[1, 5], range(1, 5), range[1, 5)
+	//@ApiImplicitParams.@ApiImplicitParam.required : 필수여부
+	//@ApiImplicitParams.@ApiImplicitParam.access : 필터링
+	//@ApiImplicitParams.@ApiImplicitParam.allowMultiple : 파라미터의 반복설정을 허용여부
+	//@ApiImplicitParams.@ApiImplicitParam.paramType=[query,body,header,form] : 파라미터타입
+	//@ApiImplicitParams.@ApiImplicitParam.dataType : 데이터 타입. (메서드에 있으므로 생략)
+	//@ApiImplicitParams.@ApiImplicitParam.example
+	//@ApiImplicitParams.@ApiImplicitParam.examples
+	//@ApiImplicitParams.@ApiImplicitParam.type
+	//@ApiImplicitParams.@ApiImplicitParam.format
+	//@ApiImplicitParams.@ApiImplicitParam.allowEmptyValue
+	//@ApiImplicitParams.@ApiImplicitParam.readOnly
+	//@ApiImplicitParams.@ApiImplicitParam.collectionFormat
+
 	
 }

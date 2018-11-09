@@ -14,7 +14,7 @@ public interface SampleService {
 	 * @param id
 	 * @return
 	 */
-	Sample get(int id);
+	Sample get(Long id);
 
 	/**
 	 * 목록조회
@@ -40,6 +40,13 @@ public interface SampleService {
 	 * 삭제
 	 * @param id
 	 */
-	int delete(int id);
+	int delete(Long id);
+
+	/**
+	 * 목록저장
+	 * @param samples
+	 * @return
+	 */
+	void setList(List<Sample> samples);
 
 }
