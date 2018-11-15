@@ -9,6 +9,7 @@
 	<select id="get"
 			parameterType="com.nudo.gg.sample.model.TreeSample"
 			resultType="com.nudo.gg.sample.model.TreeSample" useCache="true">
+/*TreeSampleMapper.get*/			
 SELECT  *
 FROM    TB_TREE_SAMPLE
 WHERE   SEQ    = #{seq}
@@ -19,6 +20,7 @@ WHERE   SEQ    = #{seq}
 	<select id="getUpperSeq"
 			parameterType="string"
 			resultType="com.nudo.gg.sample.model.TreeSample" useCache="true">
+/*TreeSampleMapper.getUpperSeq*/			
 SELECT  *
 FROM    TB_TREE_SAMPLE
 WHERE   UPPER_SEQ = #{upperSeq}
@@ -29,6 +31,7 @@ WHERE   UPPER_SEQ = #{upperSeq}
 	<select id="search"
 			parameterType="com.nudo.gg.sample.model.TreeSampleCondition"
 			resultType="com.nudo.gg.sample.model.TreeSample" useCache="true">
+/*TreeSampleMapper.search*/			
 SELECT  *
 FROM    TB_TREE_SAMPLE
 WHERE   1=1
@@ -40,6 +43,7 @@ AND     TREE_TYP = #{treeTyp}
 
 
 	<insert id="insert" parameterType="com.nudo.gg.sample.model.TreeSample">
+/*TreeSampleMapper.insert*/			
 		<selectKey keyProperty="seq" resultType="long">
 SELECT LAST_INSERT_ID()
 		</selectKey>
@@ -73,6 +77,7 @@ INSERT INTO TB_TREE_SAMPLE(
 
 
 	<update id="update" parameterType="com.nudo.gg.sample.model.TreeSample">
+/*TreeSampleMapper.update*/			
 UPDATE TB_TREE_SAMPLE
 SET    NAME       = #{name}  
 	  ,TREE_TYP   = #{treeTyp}
@@ -88,7 +93,8 @@ WHERE  SEQ  = #{seq}
 
 
 	<delete id="delete" parameterType="com.nudo.gg.sample.model.TreeSample">
-DELETE FROM TB_SAMPLE
+/*TreeSampleMapper.delete*/			
+DELETE FROM TB_TREE_SAMPLE
 WHERE  SEQ = #{seq}
 	</delete>
 
@@ -96,6 +102,7 @@ WHERE  SEQ = #{seq}
 
 <!-- 해당노드의 말단여부와 lvl을 정리한다. -->
 	<update id="updateMeta" parameterType="com.nudo.gg.sample.model.TreeSample">
+/*TreeSampleMapper.updateMeta*/			
 UPDATE TB_TREE_SAMPLE
 SET    LEAF_YN = (
 			SELECT CASE WHEN COUNT(1)=0 THEN 'Y' ELSE 'N' END 
@@ -109,6 +116,7 @@ WHERE  SEQ     = #{seq}
 
 
 	<update id="adjustMeta" >
+/*TreeSampleMapper.adjustMeta*/			
 UPDATE TB_TREE_SAMPLE A
        INNER JOIN (
 			WITH recursive TREE(SEQ,UPPER_SEQ,LVL,LEAF_YN,LVL_ADJUST) AS (
@@ -155,6 +163,7 @@ WHERE A.SEQ = B.SEQ
 	<select id="searchNodes"
 			parameterType="long"
 			resultType="com.nudo.gg.sample.model.TreeSample" useCache="true">
+/*TreeSampleMapper.searchNodes*/			
 WITH recursive TREE(SEQ        
 		  ,NAME       
 		  ,TREE_TYP   
