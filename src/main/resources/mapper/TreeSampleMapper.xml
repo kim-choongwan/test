@@ -160,11 +160,13 @@ SET   A.LVL     = B.LVL_ADJUST
 WHERE A.SEQ = B.SEQ       
 	</update>
 
+
+
 	<select id="searchNodes"
 			parameterType="long"
 			resultType="com.nudo.gg.sample.model.TreeSample" useCache="true">
 /*TreeSampleMapper.searchNodes*/			
-WITH recursive TREE(SEQ        
+WITH RECURSIVE TREE(SEQ        
 		  ,NAME       
 		  ,TREE_TYP   
 		  ,UPPER_SEQ  
