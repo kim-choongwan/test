@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.nudo.gg.sample.mapper.TreeSampleMapper">
+
+
+
+	<select id="get"
+			parameterType="com.nudo.gg.sample.model.TreeSample"
+			resultType="com.nudo.gg.sample.model.TreeSample" useCache="true">
+SELECT  *
+FROM    TB_TREE_SAMPLE
+WHERE   SEQ    = #{seq}
+	</select>
+
+
+
+	<select id="getUpperSeq"
+			parameterType="string"
+			resultType="com.nudo.gg.sample.model.TreeSample" useCache="true">
+SELECT  *
+FROM    TB_TREE_SAMPLE
+WHERE   UPPER_SEQ = #{upperSeq}
+	</select>
+
+
+
+	<select id="search"
+			parameterType="com.nudo.gg.sample.model.TreeSampleCondition"
+			resultType="com.nudo.gg.sample.model.TreeSample" useCache="true">
+SELECT  *
+FROM    TB_TREE_SAMPLE
+WHERE   1=1
+		<if test=" treeTyp != null and treeTyp != ''">
+AND     TREE_TYP = #{treeTyp} 
+		</if>
+	</select>
+
+
+
+	<insert id="insert" parameterType="com.nudo.gg.sample.model.TreeSample">
+		<selectKey keyProperty="seq" resultType="long">
+SELECT LAST_INSERT_ID()
+		</selectKey>
+INSERT INTO TB_TREE_SAMPLE(
+	   SEQ        
+	  ,NAME       
+	  ,TREE_TYP   
+	  ,UPPER_SEQ  
+	  ,LVL        
+	  ,LEAF_YN    
+	  ,ORD        
+	  ,REG_ID     
+	  ,REG_DTM    
+	  ,UPD_ID     
+	  ,UPD_DTM    
+)VALUES(
+	   #{seq} 
+	  ,#{name} 
+	  ,#{treeTyp}
+	  ,#{upperSeq}
+	  ,#{lvl} 
+	  ,#{leafYn}
+	  ,#{ord} 
+	  ,#{regId}     
+	  ,NOW()   
+	  ,#{regId}     
+	  ,NOW()   
+)
+	</insert>
+
+
+
+	<update id="update" parameterType="com.nudo.gg.sample.model.TreeSample">
+UPDATE TB_TREE_SAMPLE
+SET    NAME       = #{name}  
+	  ,TREE_TYP   = #{treeTyp}
+	  ,UPPER_SEQ  = #{upperSeq}
+	  ,LVL        = #{lvl}
+	  ,LEAF_YN    = #{leafYn}
+	  ,ORD        = #{ord}
+	  ,UPD_ID     = #{updId}     
+	  ,UPD_DTM    = now()
+WHERE  SEQ  = #{seq}
+	</update>
+
+
+
+	<delete id="delete" parameterType="com.nudo.gg.sample.model.TreeSample">
+DELETE FROM TB_SAMPLE
+WHERE  SEQ = #{seq}
+	</delete>
+
+
+
+<!-- 해당노드의 말단여부와 lvl을 정리한다. -->
+	<update id="updateMeta" parameterType="com.nudo.gg.sample.model.TreeSample">
+UPDATE TB_TREE_SAMPLE
+SET    LEAF_YN = (
+			SELECT CASE WHEN COUNT(1)=0 THEN 'Y' ELSE 'N' END 
+			FROM   TB_TREE_SAMPLE
+			WHERE  1=1
+			AND    UPPER_SEQ = #{seq}
+		)
+WHERE  SEQ     = #{seq}
+	</update>
+
+
+
+	<update id="adjustMeta" >
+UPDATE TB_TREE_SAMPLE A
+       INNER JOIN (
+			WITH recursive TREE(SEQ,UPPER_SEQ,LVL,LEAF_YN,LVL_ADJUST) AS (
+				SELECT SEQ 
+					  ,UPPER_SEQ 
+					  ,LVL
+					  ,LEAF_YN 
+					  ,1 LVL_ADJUST
+				FROM   TB_TREE_SAMPLE
+				WHERE  UPPER_SEQ = '0'
+				UNION
+				SELECT B.SEQ 
+					  ,B.UPPER_SEQ 
+					  ,B.LVL
+					  ,B.LEAF_YN 
+					  ,TREE.LVL_ADJUST+1 LVL_ADJUST
+				FROM   TB_TREE_SAMPLE B
+					   INNER JOIN TREE
+					   ON B.UPPER_SEQ = TREE.SEQ
+			)
+			SELECT *
+			FROM(    
+				SELECT SEQ 
+					  ,UPPER_SEQ 
+					  ,LVL
+					  ,LEAF_YN 
+					  ,LVL_ADJUST 
+					  ,CASE WHEN (SELECT COUNT(1) FROM TB_TREE_SAMPLE WHERE UPPER_SEQ=TREE.SEQ ) >0
+							THEN 'N'
+							ELSE 'Y' 
+							END      LEAF_YN_ADJUST
+				FROM   TREE
+				WHERE  1=1
+				) O
+			WHERE  1=1
+			AND    (LVL!=LVL_ADJUST) OR (LEAF_YN!=LEAF_YN_ADJUST)       
+       ) B
+       ON A.SEQ = B.SEQ
+SET   A.LVL     = B.LVL_ADJUST
+     ,A.LEAF_YN = B.LEAF_YN_ADJUST
+WHERE A.SEQ = B.SEQ       
+	</update>
+
+	<select id="searchNodes"
+			parameterType="long"
+			resultType="com.nudo.gg.sample.model.TreeSample" useCache="true">
+WITH recursive TREE(SEQ        
+		  ,NAME       
+		  ,TREE_TYP   
+		  ,UPPER_SEQ  
+		  ,LVL        
+		  ,LEAF_YN    
+		  ,ORD ) AS (
+	SELECT SEQ        
+		  ,NAME       
+		  ,TREE_TYP   
+		  ,UPPER_SEQ  
+		  ,LVL        
+		  ,LEAF_YN    
+		  ,ORD        
+	FROM   TB_TREE_SAMPLE
+	WHERE  SEQ = #{seq}
+	UNION
+	SELECT B.SEQ        
+		  ,B.NAME       
+		  ,B.TREE_TYP   
+		  ,B.UPPER_SEQ  
+		  ,B.LVL        
+		  ,B.LEAF_YN    
+		  ,B.ORD        
+	FROM   TB_TREE_SAMPLE B
+		   INNER JOIN TREE
+		   ON B.UPPER_SEQ = TREE.SEQ
+)
+SELECT * 
+FROM TREE
+	</select>
+
+</mapper>

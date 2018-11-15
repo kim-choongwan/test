@@ -46,6 +46,9 @@ public class SampleServiceImpl implements SampleService {
 
 	@Override
 	public int delete(Long id) {
+		if( ObjectUtil.isEmpty(id) ) {
+			throw new BizException("ERR.COM.002");
+		}
 		return sampleMapper.delete(id);
 	}
 
