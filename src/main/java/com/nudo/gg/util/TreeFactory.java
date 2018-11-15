@@ -1,6 +1,5 @@
 package com.nudo.gg.util;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import com.nudo.gg.cmm.exception.BizException;

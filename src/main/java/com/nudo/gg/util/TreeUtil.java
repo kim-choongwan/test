@@ -33,7 +33,7 @@ public class TreeUtil {
 			if(child.isRoot()) {
 				ret.addAll(child.getList());
 			}
-		}
+		}//루트별로 수집하여 리턴
 		
 		return ret;
 	}
